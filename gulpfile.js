@@ -16,3 +16,18 @@ gulp.task('minify-html', function () {
         .pipe(htmlmin({ collapseWhitespace: true }))
         .pipe(gulp.dest('public'));
 });
+
+gulp.task('sass', function () {
+    let pathsToCompile = [
+        'src/sass/**/*.scss',
+        '!src/sass/test.scss'
+    ];
+
+    return gulp.src(pathsToCompile)
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('src/css/'));
+});
+
+gulp.task('sass:watch', function () {
+    gulp.watch('src/sass/**/*.scss', ['sass']);
+});
