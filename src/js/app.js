@@ -36,17 +36,10 @@
                 // var phoneNumber = user.phoneNumber;
                 // var providerData = user.providerData;
                 
-                let studentsRef = firestore.collection('students');
-                let studentPromise = studentsRef.where('email', '==', email).limit(1).get();
-                studentPromise.then(querySnapshot => {
-                    // snapshot by default returns multiple docs get only the first one
-                    const students = querySnapshot.docs.map(doc => doc.data());
-                    const student = students[0];
-                    // query the information of each courses.
-                    
-                    return student;
+                getStudent(firestore, email).then(querySnapshot => {
+                    // TODO: Build the cards here
                 }).catch(error => console.error(error));
-
+                
                 $('#loading-spinner').fadeOut('fast', () => {
                     // Show the content after user is authenticated and loading spinner is faded out.
                     document.getElementById('nav-bar').removeAttribute('hidden');
@@ -59,7 +52,41 @@
         }, error => console.log(error));
     });
 
-    function renderStudent(student) {
-        console.log(student.courses[0]);
+    async function getStudent(firestore, email) {
+        let studentsRef = firestore.collection('students');
+        let studentPromise = await studentsRef.where('email', '==', email).limit(1).get();
+        // extract the student
+        const student = await studentPromise.docs.map(doc => doc.data())[0];
+        const coursePromises = await student.courses.map(async courseData => {
+            const courseRef = await courseData.course.get();
+            const courseInfo = await courseRef.data();
+
+            return {
+                course: courseInfo,
+                prelim: courseData.prelim,
+                midterm: courseData.midterm,
+                final: courseData.final
+            }
+        });
+
+        const courses = await Promise.all(coursePromises);
+
+        return {
+            student: {
+                name: student.name,
+                number: student.student_number,
+                email: student.email
+            },
+            courses: courses
+        };
+
+        // studentPromise.then(querySnapshot => {
+        //     // snapshot by default returns multiple docs get only the first one
+        //     const students = querySnapshot.docs.map(doc => doc.data());
+        //     const student = students[0];
+        //     // query the information of each courses.
+
+        //     return student;
+        // });
     }
 })();
