@@ -1,6 +1,6 @@
 (() => {
     'use strict';
-    
+
     M.AutoInit();
 
     // Initialize Firebase
@@ -27,6 +27,8 @@
                 var phoneNumber = user.phoneNumber;
                 var providerData = user.providerData;
                 
+                console.log(email);
+
                 $('#loading-spinner').fadeOut('fast', () => {
                     // Show the content after user is authenticated and loading spinner is faded out.
                     document.getElementById('nav-bar').removeAttribute('hidden');

@@ -65,6 +65,7 @@
     },
     "globals": {
         "M": false,
-        "firebase": false
+        "firebase": false,
+        "firebaseui": false
     }
 }
