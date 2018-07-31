@@ -1,0 +1,70 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jquery": true,
+        "node": true
+    },
+    "extends":  ["eslint:recommended", "google"],
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 6
+    },
+    "plugins": [
+        "html"
+    ],
+    "rules": {
+        "brace-style": "off",
+        "new-cap": [
+            "error",
+            { 
+                "capIsNewExceptions": ["Polymer", "M.AutoInit"],
+                "newIsCapExceptionPattern": "M.AutoInit"
+            }
+        ],
+        "no-var": "off",
+        "require-jsdoc": "off",
+        "no-trailing-spaces": [
+            2,
+            { "skipBlankLines": true }
+        ],
+        "padded-blocks": [
+            "error",
+            "never"
+        ],
+        "indent": [2, 4, {"SwitchCase": 1}],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "comma-dangle": [
+            "error",
+            "never"
+        ],
+        "no-console": [
+            "warn",
+            { "allow": ["warn", "error"] }
+        ],
+        "no-unused-vars": "warn",
+        "max-len": [
+            "warn",
+            { "code": 100 }
+        ],
+        "no-mixed-spaces-and-tabs": [
+            "error",
+            "smart-tabs"
+        ]
+    },
+    "globals": {
+        "M": false,
+        "firebase": false
+    }
+}
