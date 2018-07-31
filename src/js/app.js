@@ -1,6 +1,8 @@
 (() => {
     'use strict';
 
+    console.log('test');
+    
     // Initialize Firebase
     const config = {
         apiKey: "AIzaSyC1EQPiocY-6hu8SKKtkXesAn-zObxzZrs",
