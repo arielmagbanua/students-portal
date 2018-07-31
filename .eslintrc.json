@@ -61,6 +61,10 @@
         "no-mixed-spaces-and-tabs": [
             "error",
             "smart-tabs"
+        ],
+        "arrow-parens": [
+            "error",
+            "as-needed"
         ]
     },
     "globals": {
