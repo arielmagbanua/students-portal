@@ -6,3 +6,5 @@
 src/bower_components
 src/jquery.min.js
 src/materialize.min.js
+public/js/*.js
+public/**/*.js
