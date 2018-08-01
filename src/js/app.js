@@ -32,8 +32,10 @@
                 var email = user.email;
                 var emailVerified = user.emailVerified;
                 
-                getStudent(firestore, email).then(querySnapshot => {
+                getStudent(firestore, email).then(studentData => {
                     // TODO: Build the cards here
+                    document.querySelector('h4.greeting').innerHTML = studentData.student.name;
+                    // studentData.courses.forEach
 
                     $('#loading-spinner').fadeOut('fast', () => {
                         // Show the content after user is authenticated and loading spinner is faded out.
