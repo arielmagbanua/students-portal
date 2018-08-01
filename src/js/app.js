@@ -31,10 +31,6 @@
                 var displayName = user.displayName;
                 var email = user.email;
                 var emailVerified = user.emailVerified;
-                // var photoURL = user.photoURL;
-                // var uid = user.uid;
-                // var phoneNumber = user.phoneNumber;
-                // var providerData = user.providerData;
                 
                 getStudent(firestore, email).then(querySnapshot => {
                     // TODO: Build the cards here
@@ -86,14 +82,5 @@
             },
             courses: courses
         };
-
-        // studentPromise.then(querySnapshot => {
-        //     // snapshot by default returns multiple docs get only the first one
-        //     const students = querySnapshot.docs.map(doc => doc.data());
-        //     const student = students[0];
-        //     // query the information of each courses.
-
-        //     return student;
-        // });
     }
 })();
