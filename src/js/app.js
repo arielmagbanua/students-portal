@@ -50,6 +50,13 @@
                 window.location.replace('/login.html');
             }
         }, error => console.log(error));
+
+        document.getElementById('logout-link').addEventListener('click', () => {
+            firebase.auth().signOut().then(() => {
+                console.log('user logged out!');
+                window.location.replace('/login.html');
+            }).catch(error => console.error(error));
+        });
     });
 
     async function getStudent(firestore, email) {
