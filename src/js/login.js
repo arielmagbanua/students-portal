@@ -1,4 +1,4 @@
-(()=>{
+(() => {
     'use strict';
 
     // Initialize Firebase
@@ -13,21 +13,29 @@
 
     firebase.initializeApp(config);
 
-    // FirebaseUI config.
-    var uiConfig = {
-        signInSuccessUrl: '/',
-        signInOptions: [
-            // Leave the lines as is for the providers you want to offer your users.
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID
-        ],
-        // Terms of service url.
-        tosUrl: 'tos.html',
-        // Privacy policy url.
-        privacyPolicyUrl: 'privacy.html'
-    };
+    document.addEventListener('DOMContentLoaded', () => {
+        // FirebaseUI config.
+        var uiConfig = {
+            signInSuccessUrl: '/',
+            signInOptions: [
+                // Leave the lines as is for the providers you want to offer your users.
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID
+            ],
+            // Terms of service url.
+            tosUrl: 'tos.html',
+            // Privacy policy url.
+            privacyPolicyUrl: 'privacy.html'
+        };
 
-    // Initialize the FirebaseUI Widget using Firebase.
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    // The start method will wait until the DOM is loaded.
-    ui.start('#firebaseui-auth-container', uiConfig);
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+        // hide the loading spinner now
+        $('#loading-spinner').fadeOut('fast', () => {
+            // Show the content after user is authenticated and loading spinner is faded out.
+            document.getElementById('firebaseui-auth-container').removeAttribute('hidden');
+            // The start method will wait until the DOM is loaded.
+            ui.start('#firebaseui-auth-container', uiConfig);
+        });
+    });
 })();

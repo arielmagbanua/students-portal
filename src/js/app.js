@@ -34,13 +34,13 @@
                 
                 getStudent(firestore, email).then(querySnapshot => {
                     // TODO: Build the cards here
+
+                    $('#loading-spinner').fadeOut('fast', () => {
+                        // Show the content after user is authenticated and loading spinner is faded out.
+                        document.getElementById('nav-bar').removeAttribute('hidden');
+                        document.getElementById('main-content').removeAttribute('hidden');
+                    });
                 }).catch(error => console.error(error));
-                
-                $('#loading-spinner').fadeOut('fast', () => {
-                    // Show the content after user is authenticated and loading spinner is faded out.
-                    document.getElementById('nav-bar').removeAttribute('hidden');
-                    document.getElementById('main-content').removeAttribute('hidden');
-                });
             } else {
                 console.log('No user logged in.');
                 window.location.replace('/login.html');
