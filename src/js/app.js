@@ -35,7 +35,9 @@
                 getStudent(firestore, email).then(studentData => {
                     // TODO: Build the cards here
                     document.querySelector('h4.greeting').innerHTML = studentData.student.name;
-                    // studentData.courses.forEach
+                    studentData.courses.forEach((item, index, arr) => {
+                        
+                    });
 
                     $('#loading-spinner').fadeOut('fast', () => {
                         // Show the content after user is authenticated and loading spinner is faded out.
