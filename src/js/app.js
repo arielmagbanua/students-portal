@@ -98,7 +98,7 @@
             }
         }, error => console.log(error));
 
-        document.getElementById('logout-link').addEventListener('click', () => {
+        document.querySelector('.logout-link').addEventListener('click', () => {
             firebase.auth().signOut().then(() => {
                 window.location.replace('/login.html');
             }).catch(error => console.error(error));
