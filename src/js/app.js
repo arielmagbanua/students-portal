@@ -28,9 +28,9 @@
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 // User is signed in.
-                var displayName = user.displayName;
+                // var displayName = user.displayName;
                 var email = user.email;
-                var emailVerified = user.emailVerified;
+                // var emailVerified = user.emailVerified;
 
                 getStudent(firestore, email).then(studentData => {
                     // TODO: Build the cards here
@@ -39,27 +39,29 @@
                     document.querySelector('h4.greeting').innerHTML = studentData.student.name;
                     studentData.courses.forEach((item, index, arr) => {
                         console.log(item);
-                        let courseSchool = '<p>School: ' + item.course.school + '</p></br>';
-                        let courseName = '<p>Course name: ' + item.course.name+'</p></br>';
-                        let courseCode = '<p>Course code: ' + item.course.code + '</p></br>';
-                        let courseSubjectCode = '<p>Subject Code: ' + item.course.subject_code + '</p></br>';
+                        let courseSchool = '<p>School: <strong>' + item.course.school + '</strong></p>';
+                        let courseName = '<p>Course name: <strong>' + item.course.name+'</strong></p>';
+                        let courseCode = '<p>Course code: <strong>' + item.course.code + '</strong></p>';
+                        let courseSubjectCode = '<p>Subject Code: <strong>' + item.course.subject_code + '</strong></p>';
 
                         // prelim grade
                         let prelimContainer = $('<div id="prelim-container"></div>');
                         if (item.prelim) {
-                            prelimContainer.append($('<p><strong>Grade:</strong> ' + item.prelim.grade + '</p></br>'));
+                            prelimContainer.append($('<p>Grade: <strong>' + item.prelim.grade + '</strong></p></br>'));
                         }
 
                         // prelim grade
                         let midtermContainer = $('<div id="midterm-container"></div>');
                         if (item.midterm) {
-                            midtermContainer.append($('<p><strong>Grade:</strong> ' + item.midterm.grade + '</p></br>'));
+                            if (item.midterm.grade) {
+                                midtermContainer.append($('<p>Grade: <strong>' + item.midterm.grade + '</strong></p></br>'));
+                            }
                         }
                         
                         // final grade
                         let finalContainer = $('<div id="final-container"></div>');
                         if (item.final) {
-                            finalContainer.append($('<p><strong>Grade:</strong> ' + item.final.grade + '</p></br>'));
+                            finalContainer.append($('<p>Grade: <strong>' + item.final.grade + '</strong></p></br>'));
                         }
                         
                         let gradeContainers = prelimContainer.prop('outerHTML') + midtermContainer.prop('outerHTML') + finalContainer.prop('outerHTML');
@@ -86,20 +88,17 @@
                         // Show the content after user is authenticated and loading spinner is faded out.
                         document.getElementById('nav-bar').removeAttribute('hidden');
                         document.getElementById('main-content').removeAttribute('hidden');
-
                         // Auto init for dynamically added elements
                         M.AutoInit();
                     });
                 }).catch(error => console.error(error));
             } else {
-                console.log('No user logged in.');
                 window.location.replace('/login.html');
             }
         }, error => console.log(error));
 
         document.getElementById('logout-link').addEventListener('click', () => {
             firebase.auth().signOut().then(() => {
-                console.log('user logged out!');
                 window.location.replace('/login.html');
             }).catch(error => console.error(error));
         });
