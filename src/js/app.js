@@ -44,6 +44,26 @@
                         let courseCode = '<p>Course code: ' + item.course.code + '</p></br>';
                         let courseSubjectCode = '<p>Subject Code: ' + item.course.subject_code + '</p></br>';
 
+                        // prelim grade
+                        let prelimContainer = $('<div id="prelim-container"></div>');
+                        if (item.prelim) {
+                            prelimContainer.append($('<p><strong>Grade:</strong> ' + item.prelim.grade + '</p></br>'));
+                        }
+
+                        // prelim grade
+                        let midtermContainer = $('<div id="midterm-container"></div>');
+                        if (item.midterm) {
+                            midtermContainer.append($('<p><strong>Grade:</strong> ' + item.midterm.grade + '</p></br>'));
+                        }
+                        
+                        // final grade
+                        let finalContainer = $('<div id="final-container"></div>');
+                        if (item.final) {
+                            finalContainer.append($('<p><strong>Grade:</strong> ' + item.final.grade + '</p></br>'));
+                        }
+                        
+                        let gradeContainers = prelimContainer.prop('outerHTML') + midtermContainer.prop('outerHTML') + finalContainer.prop('outerHTML');
+
                         let card = $(`  <div class="col s1 m6 l6 xl6">
                                             <div class="card blue lighten-5">
                                                 <div class="card-content">
@@ -51,16 +71,12 @@
                                                 </div>
                                                 <div class="card-tabs">
                                                     <ul class="tabs tabs-fixed-width">
-                                                        <li class="tab"><a href="#test4">Test 1</a></li>
-                                                        <li class="tab"><a class="active" href="#test5">Test 2</a></li>
-                                                        <li class="tab"><a href="#test6">Test 3</a></li>
+                                                        <li class="tab"><a class="active" href="#prelim-container">Prelim</a></li>
+                                                        <li class="tab"><a href="#midterm-container">Midterm</a></li>
+                                                        <li class="tab"><a href="#final-container">Final</a></li>
                                                     </ul>
                                                 </div>
-                                                <div class="card-content grey lighten-4">
-                                                    <div id="test4">Test 1</div>
-                                                    <div id="test5">Test 2</div>
-                                                    <div id="test6">Test 3</div>
-                                                </div>
+                                                <div class="card-content grey lighten-4">`+ gradeContainers+`</div>
                                             </div>
                                         </div>`);
                         gradesContainer.append(card);
