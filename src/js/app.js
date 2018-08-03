@@ -43,6 +43,7 @@
                         let courseName = '<p>Course name: <strong>' + item.course.name+'</strong></p>';
                         let courseCode = '<p>Course code: <strong>' + item.course.code + '</strong></p>';
                         let courseSubjectCode = '<p>Subject Code: <strong>' + item.course.subject_code + '</strong></p>';
+                        let schoolYearSemester = '<p>SY / Semester: <strong>' + item.school_year + ' / ' + item.semester + '</strong></p>';
 
                         // prelim grade
                         let prelimContainer = $('<div id="prelim-container"></div>');
@@ -66,10 +67,10 @@
                         
                         let gradeContainers = prelimContainer.prop('outerHTML') + midtermContainer.prop('outerHTML') + finalContainer.prop('outerHTML');
 
-                        let card = $(`  <div class="col s1 m6 l6 xl6">
+                        let card = $(`  <div class="col s1 m4 l4 xl4">
                                             <div class="card blue lighten-5">
                                                 <div class="card-content">
-                                                    `+ courseSchool + courseName + courseCode + courseSubjectCode+`
+                                                    `+ courseSchool + courseName + courseCode + courseSubjectCode + schoolYearSemester +`
                                                 </div>
                                                 <div class="card-tabs">
                                                     <ul class="tabs tabs-fixed-width">
@@ -83,7 +84,7 @@
                                         </div>`);
                         gradesContainer.append(card);
                     });
-
+                    
                     $('#loading-spinner').fadeOut('fast', () => {
                         // Show the content after user is authenticated and loading spinner is faded out.
                         document.getElementById('nav-bar').removeAttribute('hidden');
@@ -117,6 +118,8 @@
 
             return {
                 course: courseInfo,
+                school_year: courseData.school_year,
+                semester: courseData.semester,
                 prelim: courseData.prelim,
                 midterm: courseData.midterm,
                 final: courseData.final
