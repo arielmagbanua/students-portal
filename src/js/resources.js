@@ -21,6 +21,14 @@
     // var storage = firebase.app().storage("gs://my-custom-bucket");
     
     document.addEventListener('DOMContentLoaded', () => {
+        console.log('loaded');
 
+        $('#loading-spinner').fadeOut('fast', () => {
+            // Show the content after user is authenticated and loading spinner is faded out.
+            document.getElementById('nav-bar').removeAttribute('hidden');
+            document.getElementById('main-content').removeAttribute('hidden');
+            // Auto init for dynamically added elements
+            M.AutoInit();
+        });
     });
 })();
