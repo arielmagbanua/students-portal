@@ -14,14 +14,32 @@
     };
 
     firebase.initializeApp(config);
-
-    var storage = firebase.storage();
-
+    // var storage = firebase.storage();
     // Get a non-default Storage bucket
-    // var storage = firebase.app().storage("gs://my-custom-bucket");
+    let androidResourcesStorage = firebase.app().storage("gs://android-resources");
+    let androidResourcesRef = androidResourcesStorage.ref();
+
+    const settings = {
+        /* your settings... */
+        timestampsInSnapshots: true
+    };
+
+    // Initialize Cloud Firestore through Firebase
+    var firestore = firebase.firestore();
+    firestore.settings(settings);
     
     document.addEventListener('DOMContentLoaded', () => {
-        console.log('loaded');
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                // Get all courses
+                getCourses(firestore).then(courses => {
+                    console.log(courses);
+                })
+                .catch(error => {console.error(error)});
+            } else {
+                window.location.replace('/login.html');
+            }
+        }, error => console.log(error));
 
         $('#loading-spinner').fadeOut('fast', () => {
             // Show the content after user is authenticated and loading spinner is faded out.
@@ -30,5 +48,15 @@
             // Auto init for dynamically added elements
             M.AutoInit();
         });
+
+        console.log(androidResourcesRef);
     });
+
+    async function getCourses(firestore){
+        let coursesRef = firestore.collection('courses');
+        let coursesPromise = await coursesRef.where('resources.lectureSlides', '>', '').get();
+
+        // extract the resources
+        return await coursesPromise.map(doc => doc.data());
+    }
 })();
